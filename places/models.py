@@ -19,6 +19,7 @@ class Place(models.Model):
 
 
 class Image(models.Model):
+    index_num = models.IntegerField(null=True)
     image = models.ImageField(upload_to='img', null=True)
     place = models.ForeignKey(
         Place,
@@ -26,4 +27,4 @@ class Image(models.Model):
         related_name='images')
 
     def __str__(self):
-        return self.place.title
+        return f'{self.index_num} {self.place}'
