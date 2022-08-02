@@ -16,3 +16,14 @@ class Place(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Image(models.Model):
+    image = models.ImageField(upload_to='img', null=True)
+    place = models.ForeignKey(
+        Place,
+        on_delete=models.CASCADE,
+        related_name='images')
+
+    def __str__(self):
+        return self.place.title
