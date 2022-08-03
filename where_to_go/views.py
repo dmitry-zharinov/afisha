@@ -1,7 +1,8 @@
-from django.http import HttpResponse
 from django.shortcuts import render
-from django.template import loader
+from places.models import Place
 
+moscow_legends = Place.objects.get(placeId='moscow_legends')
+roofs24 = Place.objects.get(placeId='roofs24')
 
 places = {
     "type": "FeatureCollection",
@@ -10,7 +11,8 @@ places = {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [37.62, 55.793676]
+                "coordinates": [moscow_legends.longitude,
+                                moscow_legends.latitude]
             },
             "properties": {
                 "title": "«Легенды Москвы",
@@ -22,7 +24,8 @@ places = {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [37.64, 55.753676]
+                "coordinates": [roofs24.longitude,
+                                roofs24.latitude]
             },
             "properties": {
                 "title": "Крыши24.рф",
@@ -32,7 +35,6 @@ places = {
         }
     ]
 }
-
 
 
 def show_start_page(request):
