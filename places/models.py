@@ -24,8 +24,8 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    index_num = models.IntegerField(null=True)
-    image = models.ImageField(null=True)
+    index_num = models.IntegerField(null=True, verbose_name='Позиция')
+    image = models.ImageField(null=True, verbose_name='Картинка')
     place = models.ForeignKey(
         Place,
         on_delete=models.CASCADE,
