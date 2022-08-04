@@ -22,14 +22,28 @@ class Place(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta(object):
+        verbose_name = 'Место'
+        verbose_name_plural = "Места"
+
 
 class Image(models.Model):
-    index_num = models.IntegerField(null=True, verbose_name='Позиция')
     image = models.ImageField(null=True, verbose_name='Картинка')
     place = models.ForeignKey(
         Place,
         on_delete=models.CASCADE,
         related_name='images')
+    my_order = models.PositiveIntegerField(
+        verbose_name='Позиция',
+        default=0,
+        blank=False,
+        null=False,
+    )
 
     def __str__(self):
-        return f'{self.index_num} {self.place}'
+        return f'{self.my_order} {self.place}'
+
+    class Meta(object):
+        ordering = ['my_order']
+        verbose_name = "Картинка"
+        verbose_name_plural = "Картинки"
