@@ -33,17 +33,15 @@ class Image(models.Model):
         Place,
         on_delete=models.CASCADE,
         related_name='images')
-    my_order = models.PositiveIntegerField(
+    order = models.PositiveIntegerField(
         verbose_name='Позиция',
         default=0,
-        blank=False,
-        null=False,
     )
 
     def __str__(self):
-        return f'{self.my_order} {self.place}'
+        return f'{self.order} {self.place}'
 
     class Meta(object):
-        ordering = ['my_order']
+        ordering = ['order']
         verbose_name = "Картинка"
         verbose_name_plural = "Картинки"

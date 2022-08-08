@@ -11,7 +11,7 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
     fields = ['place', 'image', 'preview_image']
     readonly_fields = ["preview_image"]
-    ordering = ['my_order']
+    ordering = ['order']
 
     def preview_image(self, place):
         return format_html(

@@ -5,9 +5,9 @@ from django.urls import reverse
 from places.models import Image, Place
 
 
-def all_places(request, post_id):
+def get_place_details(request, place_id):
     try:
-        place = Place.objects.get(pk=post_id)
+        place = Place.objects.get(pk=place_id)
     except Place.DoesNotExist:
         raise Http404("No MyModel matches the given query.")
     images = get_list_or_404(Image, place=place)
@@ -24,8 +24,7 @@ def all_places(request, post_id):
     return JsonResponse(place_json,
                         safe=False,
                         json_dumps_params={
-                            'ensure_ascii': False,
-                            'indent': 2})
+                            'ensure_ascii': False})
 
 
 def index(request):
@@ -46,7 +45,7 @@ def index(request):
                     "properties": {
                         "title": place.title,
                         "placeId": place.id,
-                        "detailsUrl": reverse(all_places, args=[place.id])
+                        "detailsUrl": reverse(get_place_details, args=[place.id])
                     }
                 }
             ]

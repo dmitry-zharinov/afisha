@@ -8,6 +8,6 @@ from where_to_go import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
-    path('places/<int:post_id>/', views.all_places),
+    path('places/<int:place_id>/', views.get_place_details),
     path('tinymce/', include('tinymce.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
