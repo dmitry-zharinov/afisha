@@ -41,7 +41,7 @@ $ python manage.py createsuperuser
 $ python manage.py load_place http://адрес/файла.json
 ```
 
-Файл json должен иметь следующий формат:
+Файл json должен иметь следующий формат ([пример](https://gist.github.com/dmitry-zharinov/52601d899d97fa948d0864984c24ccf5)):
 ```json
 {
     "title": "Название",
