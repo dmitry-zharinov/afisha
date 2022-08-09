@@ -1,16 +1,12 @@
-from django.http import Http404
 from django.http.response import JsonResponse
-from django.shortcuts import get_list_or_404, render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from places.models import Image, Place
+from places.models import Place
 
 
 def get_place_details(request, place_id):
-    try:
-        place = Place.objects.get(pk=place_id)
-    except Place.DoesNotExist:
-        raise Http404("No MyModel matches the given query.")
-    images = get_list_or_404(Image, place=place)
+    place = get_object_or_404(Place, pk=place_id)
+    images = place.images.all()
     place_json = {
         "title": place.title,
         'imgs': [item.image.url for item in images],
@@ -45,7 +41,8 @@ def index(request):
                     "properties": {
                         "title": place.title,
                         "placeId": place.id,
-                        "detailsUrl": reverse(get_place_details, args=[place.id])
+                        "detailsUrl": reverse(get_place_details,
+                                              args=[place.id])
                     }
                 }
             ]
