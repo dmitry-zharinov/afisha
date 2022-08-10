@@ -7,7 +7,7 @@ from places.models import Place
 def get_place_details(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
     images = place.images.all()
-    place_json = {
+    place_details = {
         "title": place.title,
         'imgs': [item.image.url for item in images],
         'description_short': place.description_short,
@@ -17,7 +17,7 @@ def get_place_details(request, place_id):
             'lat': place.latitude
         }
     }
-    return JsonResponse(place_json,
+    return JsonResponse(place_details,
                         safe=False,
                         json_dumps_params={
                             'ensure_ascii': False})
@@ -26,9 +26,8 @@ def get_place_details(request, place_id):
 def index(request):
     places = Place.objects.all()
 
-    places_with_description = []
-    for place in places:
-        description = {
+    places_with_description = [
+        {
             "type": "FeatureCollection",
             "features": [
                 {
@@ -46,8 +45,8 @@ def index(request):
                     }
                 }
             ]
-        }
-        places_with_description.append(description)
+        } for place in places]
+
     return render(request,
                   'index.html',
                   {'places_geojson': places_with_description})
