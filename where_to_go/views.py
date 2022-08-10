@@ -18,7 +18,6 @@ def get_place_details(request, place_id):
         }
     }
     return JsonResponse(place_details,
-                        safe=False,
                         json_dumps_params={
                             'ensure_ascii': False})
 
